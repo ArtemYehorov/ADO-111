@@ -35,9 +35,8 @@ namespace Sales
         {
             InitializeComponent();
             // Строчка подключение берёться из свойст бд(Server Explorer)
-            String conectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Dr\source\repos\ADO-111\Sales\Sales-111.mdf;Integrated Security=True";
             // создание обьекта-подключения !! не открывает подключение 
-            _connection = new(conectionString);
+            _connection = new(App.ConectionString);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -329,5 +328,12 @@ namespace Sales
             }
         }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (_connection?.State == ConnectionState.Open)
+            {
+                _connection.Close();
+            }
+        }
     }
 }
