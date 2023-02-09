@@ -1,0 +1,44 @@
+﻿LINQ - Language Integrated Query - создания подобия SQL запросов для языковых данных - коллекций\массивов
+
+e LINQ есть две синтаксических формы с одиноковым действием 
+форма "query" - похожа на синтаксис SQL
+форма "metod" использует финальную прарадигму.
+
+
+private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // LINQ - форма "query"
+            var query = from d in Departments
+                        select d.Name;             запрос на возврат всех имен из коллекции (не БД) Departments
+
+
+            // LINQ форма "extension" / "metod"
+            var query2 = Departments.Select(d => d.Name);   Тожесамое на стиле "metod"
+
+            foreach(String name in query) 
+            {
+                TextBlock1.Text += name + "\n";
+            }
+            TextBlock1.Text += "-----------------\n";
+            foreach (String name in query2)
+            {
+                TextBlock1.Text += name + "\n";
+            }
+        }
+
+
+LINQ запросы создают правила (итераторы) но сразу не выполняются .
+Для их активации нужно создать цикл или вызвать агрегатор (Count и т.п)
+
+ var query = from d in Departments            |    var query2 = Departments.Where(d => d.Id == id).Select(d =>d.Name);
+             where d.Id == id                 |
+             select d.Name;                   |
+
+
+--------------------------------LINQ-to-SQL-------------------------------------
+ORM - система упрощающая работу с БД и сводящая её к LINQ запросам (языковым выражениям)
+Для неё создаёться собственные Entities, содержащие необходимые атребуты .
+Также для коллекций предусмотрены собственные типы , набор всех коллекций данных 
+называют контекстом 
+
+технология снята с поддержки

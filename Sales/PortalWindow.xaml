@@ -12,5 +12,6 @@
         </Label>
         <Button Content="1. Присоеденённый режим" Margin="10" Click="Button_Click"></Button>
         <Button Content="2. Отсоеденённый режим"  Margin="10" Click="Button_Click_1"></Button>
+        <Button Content="3. LINQ-to_SQL (Deprecated)"  Margin="10" Click="Button_Click_2"></Button>
     </StackPanel>
 </Window>
