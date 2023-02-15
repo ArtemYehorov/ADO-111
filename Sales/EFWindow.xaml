@@ -1,0 +1,104 @@
+﻿<Window x:Class="Sales.EFWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sales"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="EFWindow" Height="450" Width="800">
+
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="309*" />
+            <ColumnDefinition Width="224*" />
+            <ColumnDefinition Width="267*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid ShowGridLines="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="103*" />
+                <ColumnDefinition Width="147*" />
+                <ColumnDefinition Width="59*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
+                   Content="Монитор" FontSize="20" FontWeight="DemiBold"
+                   HorizontalAlignment="Center" Width="98"/>
+
+            <Label Content="Подключение" HorizontalAlignment="Center" Margin="0,36,0,0" Grid.RowSpan="2" Width="87"/>
+            <Label Grid.Column="1" x:Name="MonitorConnection" HorizontalAlignment="Center" Margin="0,36,0,0" Grid.RowSpan="2" Width="10"/>
+
+            <Label Grid.Row="1" Content="Отделов" HorizontalAlignment="Center" Margin="0,36,0,36" Grid.RowSpan="3" Width="57"/>
+            <Label Grid.Column="1" Grid.Row="1" Content="0" x:Name="MonitorDepartments" HorizontalAlignment="Center" Margin="0,36,0,36" Grid.RowSpan="3" Width="44"/>
+
+            <Label Grid.Row="3" Content="Продуктов" HorizontalAlignment="Center" Margin="0,0,0,36" Grid.RowSpan="2" Width="69"/>
+            <Label Grid.Column="1" Grid.Row="3" Content="0" x:Name="MonitorProducts" HorizontalAlignment="Center" Margin="0,0,0,36" Grid.RowSpan="2" Width="44"/>
+
+            <Label Grid.Row="4" Content="Менеджеров" HorizontalAlignment="Center" Margin="0,0,0,36" Grid.RowSpan="2" Width="83"/>
+            <Label Grid.Column="1" Grid.Row="4" Content="0" x:Name="MonitorManagers" HorizontalAlignment="Center" Margin="0,0,0,36" Grid.RowSpan="2" Width="44"/>
+
+            <Label Grid.Row="5" Content="Продажи" HorizontalAlignment="Center" Width="61"/>
+            <Label Grid.Column="1" Grid.Row="5" Content="0" x:Name="MonitorSales" HorizontalAlignment="Center" Width="44"/>
+            <Button x:Name="ButtonSalesAdd" Content="Add" Grid.Column="2" Grid.Row="5" Click="ButtonSalesAdd_Click"/>
+
+
+
+        </Grid>
+
+        <Grid  ShowGridLines="True" Margin="0,217,0,0" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
+                   Content="Статистика за день" FontSize="20" FontWeight="DemiBold"
+                   HorizontalAlignment="Center"/>
+            <Label Grid.Column="0" Grid.Row="1" Content="Продаж (чеков)" HorizontalAlignment="Center"/>
+            <Label Grid.Column="1" Grid.Row="1" x:Name="StatTotalSales" HorizontalAlignment="Center"/>
+
+            <Label Grid.Column="0" Grid.Row="2" Content="Продаж (товаров)" HorizontalAlignment="Center"/>
+            <Label Grid.Column="1" Grid.Row="2" x:Name="StatTotalProducts" HorizontalAlignment="Center"/>
+
+            <Label Grid.Column="0" Grid.Row="3" Content="Продаж (грн)" HorizontalAlignment="Center"/>
+            <Label Grid.Column="1" Grid.Row="3" x:Name="StatTotalMoney" HorizontalAlignment="Center"/>
+
+            <Label Grid.Column="0" Grid.Row="4" Content="ТОП 1 менеджер" HorizontalAlignment="Center"/>
+            <Label Grid.Column="1" Grid.Row="4" x:Name="StatTopManager" HorizontalAlignment="Center"/>
+
+            <Label Grid.Column="0" Grid.Row="5" Content="ТОП 1 отдел" HorizontalAlignment="Center"/>
+            <Label Grid.Column="1" Grid.Row="5" x:Name="StatTopDepart" HorizontalAlignment="Center"/>
+
+            <Label Grid.Column="0" Grid.Row="6" Content="ТОП 1 товар" HorizontalAlignment="Center"/>
+            <Label Grid.Column="1" Grid.Row="6" x:Name="StatTopProduct" HorizontalAlignment="Center"/>
+            <Grid/>
+
+
+
+        </Grid>
+
+
+
+
+    </Grid>
+</Window>
