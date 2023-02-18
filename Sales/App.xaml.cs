@@ -14,5 +14,6 @@ namespace Sales
     public partial class App : Application
     {
         public const String ConectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Dr\source\repos\ADO-111\Sales\Sales-111.mdf;Integrated Security=True";
+        public static readonly Random rand = new Random();
     }
 }

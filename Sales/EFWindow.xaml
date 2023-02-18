@@ -33,9 +33,9 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
+            <Label Grid.Column="1" Grid.Row="0" 
                    Content="Монитор" FontSize="20" FontWeight="DemiBold"
-                   HorizontalAlignment="Center" Width="98"/>
+                   HorizontalAlignment="Left" Width="93" Margin="10,0,0,0"/>
 
             <Label Content="Подключение" HorizontalAlignment="Center" Margin="0,36,0,0" Grid.RowSpan="2" Width="87"/>
             <Label Grid.Column="1" x:Name="MonitorConnection" HorizontalAlignment="Center" Margin="0,36,0,0" Grid.RowSpan="2" Width="10"/>

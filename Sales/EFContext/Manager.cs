@@ -18,7 +18,7 @@ namespace Sales.EFContext
 
         public String ToShortString()
         {
-            return $"{Id.ToString()[..4]} ... {Surname} {Name} {Secname}";
+            return $"{Surname} {Name[0]}. {Secname[0]}.";
         }
     }
 }
