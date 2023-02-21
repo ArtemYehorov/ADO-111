@@ -97,7 +97,13 @@
 
         </Grid>
 
+        <Label Grid.Row="0" Grid.Column="1" x:Name="label1" Content=""/>
 
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="TextBox1" IsReadOnly="True" />
+
+        <TextBox Grid.Row="0" Grid.Column="2" x:Name="TextBox2" IsReadOnly="True" />
+
+        <TextBox Grid.Row="1" Grid.Column="2" x:Name="TextBox3" IsReadOnly="True" />
 
 
     </Grid>

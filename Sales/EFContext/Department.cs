@@ -12,6 +12,9 @@ namespace Sales.EFContext
         public Guid Id { get; set; }     //набор сущностей посторяет структуру таблицы
         public String Name { get; set; } = null!;
 
+        public List<Manager> Managers { get; set; }
+
+        public List<Manager> ManagersS { get; set; }
         public String ToShortString()
         {
             return Id.ToString()[..4] + "... " + Name;

@@ -1,4 +1,5 @@
-﻿using Sales.EFContext;
+﻿using Microsoft.EntityFrameworkCore;
+using Sales.EFContext;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,7 @@ namespace Sales
             MonitorManagers.Content= dataContext.Managers.Count().ToString();
             MonitorSales.Content = dataContext.Sales.Count().ToString();
             ShowDailyStatistics();
+            NavProperties();
 
         }
 
@@ -105,6 +107,39 @@ namespace Sales
             dataContext.SaveChanges();
             MonitorSales.Content = dataContext.Sales.Count().ToString();
             ShowDailyStatistics();
+        }
+
+        private void NavProperties()
+        {
+            var man = dataContext.Managers.Include(m => m.MainDep).Include(m => m.SecDep).Include(m => m.Chief).First();
+            label1.Content = man.Surname + " " + man.MainDep.Name + " " + man.SecDep.Name;
+
+            var dep = dataContext.Departments.Include(d => d.Managers).Include(d => d.ManagersS).Skip(1).First();
+            label1.Content += "\n" + dep.Name + " " + dep.Managers.Count() + " mans" + ", " + dep.ManagersS.Count() + " parts ";
+
+            label1.Content += "\n" + (man.Chief?.Surname ?? "--")
+                + " " + man.Subordinates.Count() + " subs";
+
+
+
+            var Man2 = dataContext.Managers.Include(m => m.Chief).Include(m => m.Subordinates);
+            foreach (var item in Man2)
+            {
+                TextBox1.Text += "\n" + item.Surname + " Cheif - " + (item.Chief?.Surname ?? "__") + " " + " subs - " + item.Subordinates.Count();
+            }
+
+            var Dep2 = dataContext.Departments.Include(d => d.Managers).Include(d => d.ManagersS);
+            foreach (var item in Dep2)
+            {
+                TextBox2.Text += "\n" + item.Name + " Кол.во Основных С. - " + item.Managers.Count() + " ДоПол. - " + item.ManagersS.Count();
+            }
+
+            var Man3 = dataContext.Managers.Include(m => m.MainDep).Include(m => m.SecDep);
+            foreach (var item in Man2)
+            {
+                TextBox3.Text += "\n" + item.Surname + " " + item.Name + " Основной отдел - " + item.MainDep.Name + " Доп - " + (item.SecDep?.Name ?? "__");
+            }
+
         }
     }
 }
