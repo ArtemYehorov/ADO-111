@@ -1,0 +1,2 @@
+23.02.2023 16:39:30 | Error | Invalid object name 'Sales1'. | MainWindow.ShowDailyStatistics
+23.02.2023 16:53:08 | Error | Invalid object name 'SalesJop'. | MainWindow.ShowDailyStatistics | SELECT ROUND ( SUM(s.Cnt * p.Price ),3) FROM SalesJop s JOIN Products p ON s.ID_product = p.Id WHERE CAST(s.Moment AS DATE) = '2022-2-23'

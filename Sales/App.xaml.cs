@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Sales.Logging;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -15,5 +17,6 @@ namespace Sales
     {
         public const String ConectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Dr\source\repos\ADO-111\Sales\Sales-111.mdf;Integrated Security=True";
         public static readonly Random rand = new Random();
+        internal static Logging.ILogger Logger = new DBLogger(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Dr\source\repos\ADO-111\Sales\logging_db.mdf;Integrated Security=True");
     }
 }

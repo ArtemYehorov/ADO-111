@@ -134,36 +134,52 @@ namespace Sales
             {
                 Connection = _connection
             };
-            // в БД информация за 2022 год, по этому формируем дату с тикущим днём и месяцем, но за 2022 год
-            String date = $"2022-{DateTime.Now.Month}-{DateTime.Now.Day}";
+            try
+            {
 
-            //всегт продаж(чеков)
-            cmd.CommandText = $"SELECT COUNT(*) FROM Sales s WHERE CAST(s.Moment AS DATE) = '{date}'";
-            StatTotalSales.Content = cmd.ExecuteScalar().ToString();
+           
+                 // в БД информация за 2022 год, по этому формируем дату с тикущим днём и месяцем, но за 2022 год
+                 String date = $"2022-{DateTime.Now.Month}-{DateTime.Now.Day}";
+                 
+                 //всегт продаж(чеков)
+                 cmd.CommandText = $"SELECT COUNT(*) FROM Sales s WHERE CAST(s.Moment AS DATE) = '{date}'";
+                 StatTotalSales.Content = cmd.ExecuteScalar().ToString();
+                 
+                 //всегт продаж(товаров, штук)
+                 cmd.CommandText = $"SELECT SUM(s.Cnt) FROM Sales s WHERE CAST(s.Moment AS DATE) = '{date}'";
+                 StatTotalProducts.Content = cmd.ExecuteScalar().ToString();
+                 
+                 //всегт продаж(деньги, грн)
+                 cmd.CommandText = $"SELECT ROUND ( SUM(s.Cnt * p.Price ),3) FROM Sales s JOIN Products p ON s.ID_product = p.Id WHERE CAST(s.Moment AS DATE) = '{date}'";
+                 StatTotalMoney.Content = cmd.ExecuteScalar().ToString();
+                 
+                 cmd.CommandText = $"SELECT TOP 1 m.Surname + ' ' + m.Name " +
+                     $"FROM Sales s JOIN Managers m  ON s.ID_manager = m.Id " +
+                     $"JOIN Products p " +
+                     $"ON s.ID_product = p.Id WHERE CAST(s.Moment AS DATE) = '{date}' " +
+                     $"GROUP BY  m.Surname + ' ' + m.Name\r\nORDER BY SUM(s.Cnt * p.Price) DESC\r\n ";
+                 StatTopManager.Content = cmd.ExecuteScalar().ToString();
+                 
+                 cmd.CommandText = $"SELECT TOP 1 d.Name FROM Sales s JOIN Managers m ON s.ID_manager = m.Id JOIN Products p ON s.ID_product = p.Id JOIN Departments d ON m.Id_main_dep = d.Id WHERE CAST(s.Moment AS DATE) = '{date}' GROUP BY d.Name ORDER BY SUM(s.Cnt) DESC ";
+                 StatTopDepart.Content = cmd.ExecuteScalar().ToString();
+                 
+                 cmd.CommandText = $"SELECT TOP 1 p.Name FROMe Sales s JOIN  Products p ON s.ID_product = p.Id WHERE CAST(s.Moment AS DATE) = '{date}' GROUP BY p.Name ORDER BY SUM(s.Cnt) DESC";
+                 StatTopProduct.Content = cmd.ExecuteScalar().ToString();
+                 
+                 
+            }
+            catch (Exception ex)
+            {
 
-            //всегт продаж(товаров, штук)
-            cmd.CommandText = $"SELECT SUM(s.Cnt) FROM Sales s WHERE CAST(s.Moment AS DATE) = '{date}'";
-            StatTotalProducts.Content = cmd.ExecuteScalar().ToString();
-
-            //всегт продаж(деньги, грн)
-            cmd.CommandText = $"SELECT ROUND ( SUM(s.Cnt * p.Price ),3) FROM Sales s JOIN Products p ON s.ID_product = p.Id WHERE CAST(s.Moment AS DATE) = '{date}'";
-            StatTotalMoney.Content = cmd.ExecuteScalar().ToString();
-
-            cmd.CommandText = $"SELECT TOP 1 m.Surname + ' ' + m.Name " +
-                $"FROM Sales s JOIN Managers m  ON s.ID_manager = m.Id " +
-                $"JOIN Products p " +
-                $"ON s.ID_product = p.Id WHERE CAST(s.Moment AS DATE) = '{date}' " +
-                $"GROUP BY  m.Surname + ' ' + m.Name\r\nORDER BY SUM(s.Cnt * p.Price) DESC\r\n ";
-            StatTopManager.Content = cmd.ExecuteScalar().ToString();
-
-            cmd.CommandText = $"SELECT TOP 1 d.Name FROM Sales s JOIN Managers m ON s.ID_manager = m.Id JOIN Products p ON s.ID_product = p.Id JOIN Departments d ON m.Id_main_dep = d.Id WHERE CAST(s.Moment AS DATE) = '{date}' GROUP BY d.Name ORDER BY SUM(s.Cnt) DESC ";
-            StatTopDepart.Content = cmd.ExecuteScalar().ToString();
-
-            cmd.CommandText = $"SELECT TOP 1 p.Name FROM Sales s JOIN  Products p ON s.ID_product = p.Id WHERE CAST(s.Moment AS DATE) = '{date}' GROUP BY p.Name ORDER BY SUM(s.Cnt) DESC";
-            StatTopProduct.Content = cmd.ExecuteScalar().ToString();
-
+                App.Logger.Log(ex.Message, Logging.LogLevel.Error, this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod()?.Name ?? "", cmd.CommandText);
+                StatTopDepart.Content = "--";
+                StatTopProduct.Content = "--";
+                StatTopManager.Content = "--";
+                StatTotalMoney.Content = "--";
+                StatTotalProducts.Content = "--";
+                StatTotalSales.Content = "--";
+            }
             cmd.Dispose();
-
         }
         /// <summary>
         /// Заполняет блок "Отделы" - выборка всех данных из таблицы Deparments
@@ -210,9 +226,7 @@ namespace Sales
                 }
                 catch (SqlException ex)
                 {
-
-                    MessageBox.Show(ex.Message);
-                    return;
+                    App.Logger.Log(ex.Message, Logging.LogLevel.Error, this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod()?.Name ?? "", cmd.CommandText);
                 }
              
             }
@@ -244,9 +258,7 @@ namespace Sales
                 }
                 catch (SqlException ex)
                 {
-
-                    MessageBox.Show(ex.Message);
-                    return;
+                    App.Logger.Log(ex.Message, Logging.LogLevel.Error, this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod()?.Name ?? "", cmd.CommandText);
                 }
 
             }
@@ -279,9 +291,7 @@ namespace Sales
                 }
                 catch (SqlException ex)
                 {
-
-                    MessageBox.Show(ex.Message);
-                    return;
+                    App.Logger.Log(ex.Message, Logging.LogLevel.Error, this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod()?.Name ?? "", cmd.CommandText);
                 }
 
             }
@@ -315,9 +325,7 @@ namespace Sales
                 }
                 catch (SqlException ex)
                 {
-
-                    MessageBox.Show(ex.Message);
-                    return;
+                    App.Logger.Log(ex.Message, Logging.LogLevel.Error, this.GetType().Name, System.Reflection.MethodInfo.GetCurrentMethod()?.Name ?? "", cmd.CommandText);
                 }
 
             }
